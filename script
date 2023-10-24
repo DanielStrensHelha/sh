@@ -1,4 +1,5 @@
 #!/bin/bash
+ https://anduin.linuxfromscratch.org/BLFS/blfs-bootscripts/blfs-bootscripts-20230824.tar.xz
 cd /sources/
 wget https://github.com/NetworkConfiguration/dhcpcd/releases/download/v10.0.2/dhcpcd-10.0.2.tar.xz
 
