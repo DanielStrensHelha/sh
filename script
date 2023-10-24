@@ -1,3 +1,22 @@
 #!/bin/bash
 cd /sources/
 wget https://github.com/NetworkConfiguration/dhcpcd/releases/download/v10.0.2/dhcpcd-10.0.2.tar.xz
+
+./configure --prefix=/usr                \
+            --sysconfdir=/etc            \
+            --libexecdir=/usr/lib/dhcpcd \
+            --dbdir=/var/lib/dhcpcd      \
+            --runstatedir=/run           \
+            --disable-privsep         &&
+make
+make install
+
+make install-service-dhcpcd
+
+cat > /etc/sysconfig/ifconfig.eth0 << "EOF"
+ONBOOT="yes"
+IFACE="eth0"
+SERVICE="dhcpcd"
+DHCP_START="-b -q -h ''<insert appropriate start options here>"
+DHCP_STOP="-k <insert additional stop options here>"
+EOF
